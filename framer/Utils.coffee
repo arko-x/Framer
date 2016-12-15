@@ -284,21 +284,21 @@ Utils.uuid = ->
 Utils.layerMatchesSelector = (layer, selector) ->
 	getHierarchyString = (l) ->
 		# create a string of the hierarchy so we can run regex on it
-		nameArr = _.pluck(l.ancestors().reverse(),'name')
+		nameArr = _.pluck(l.ancestors().reverse(), 'name')
 		return nameArr.join('>') + ">#{layer.name}"
-					
+
 	hierarchyMatch = (hierarchy, string) ->
-		string = string.replace(/\s*>\s*/g,'>') # clean spaces around >
+		string = string.replace(/\s*>\s*/g, '>') # clean spaces around >
 		string = string.split('*').join('[^>]*') # anything but >
 		string = string.split(' ').join('(?:.*)>') # anything but ends with >
 		string = string.split(',').join('$|') # or
 		regexString = "(^|>)"+string+"$"
-	
-		regExp = new RegExp(regexString) 
+
+		regExp = new RegExp(regexString)
 		return regExp.test(hierarchy)
-		
+
 	if selector
-		hierarchy = getHierarchyString(layer,selector)
+		hierarchy = getHierarchyString(layer, selector)
 		return hierarchyMatch(hierarchy, selector)
 
 Utils.arrayFromArguments = (args) ->
@@ -988,7 +988,7 @@ Utils.frameCenterPoint = (frame) ->
 		y: Utils.frameGetMidY(frame)
 
 Utils.frameInFrame = (frameA, frameB) ->
-	
+
 	for point in Utils.pointsFromFrame(frameA)
 		return false unless Utils.pointInFrame(point, frameB)
 
