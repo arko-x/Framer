@@ -634,6 +634,12 @@ class exports.Layer extends BaseClass
 	selectAllChildren: (selector) ->
 		Utils.filterLayers(@descendants, selector)
 
+	@select: (selector) ->
+		Framer.CurrentContext.selectLayer(selector)
+
+	@selectAll: (selector) ->
+		Framer.CurrentContext.selectAllLayers(selector)
+
 	destroy: ->
 
 		# Todo: check this
@@ -874,15 +880,6 @@ class exports.Layer extends BaseClass
 			return @parent
 		if @_context._parent
 			return @_context._parent
-
-
-	@select: (selector) ->
-		layers = _.find Framer.CurrentContext.layers, (layer) ->
-			Utils.layerMatchesSelector(layer, selector)
-
-	@selectAll: (selector) ->
-		layers = Framer.CurrentContext.layers.filter (layer) ->
-			Utils.layerMatchesSelector(layer, selector)
 
 	##############################################################
 	# Backwards superLayer and children compatibility
