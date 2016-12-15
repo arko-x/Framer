@@ -628,6 +628,12 @@ class exports.Layer extends BaseClass
 	querySelector: (query) -> @_element.querySelector(query)
 	querySelectorAll: (query) -> @_element.querySelectorAll(query)
 
+	selectChild: (selector) ->
+		Utils.findLayer(@descendants, selector)
+
+	selectAllChildren: (selector) ->
+		Utils.filterLayers(@descendants, selector)
+
 	destroy: ->
 
 		# Todo: check this
@@ -868,14 +874,6 @@ class exports.Layer extends BaseClass
 			return @parent
 		if @_context._parent
 			return @_context._parent
-
-	select: (selector) ->
-		layers = _.find @descendants, (layer) ->
-			Utils.layerMatchesSelector(layer, selector)
-
-	selectAll: (selector) ->
-		layers = @descendants.filter (layer) ->
-			Utils.layerMatchesSelector(layer, selector)
 
 
 	@select: (selector) ->
